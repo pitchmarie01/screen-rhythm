@@ -1,0 +1,32 @@
+{
+  "name": "screen-rhythm",
+  "version": "1.0.0",
+  "description": "Screen Rhythm: a desktop screen-wellness companion. Stay in your rhythm.",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "build:renderer": "esbuild src/renderer.js --bundle --outfile=dist/renderer.bundle.js --platform=browser --format=iife --log-level=warning",
+    "build:preload": "esbuild src/preload.js --bundle --outfile=dist/preload.bundle.js --platform=node --format=cjs --external:electron --log-level=warning",
+    "build:worker": "esbuild src/frame-worker.js --bundle --outfile=dist/frame-worker.bundle.js --platform=browser --format=iife --log-level=warning",
+    "build": "npm run build:renderer && npm run build:preload && npm run build:worker",
+    "start": "npm run build && electron .",
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@smartspectra/node-sdk": "^3.5.0",
+    "dotenv": "^18.0.10",
+    "electron": "^45.3.3"
+  },
+  "allowScripts": {
+    "koffi@2.16.4": true,
+    "protobufjs@7.6.6": true,
+    "esbuild@0.28.2": true
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

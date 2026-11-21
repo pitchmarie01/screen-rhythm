@@ -2,9 +2,9 @@
 
 ### Stay in your rhythm.
 
-Screen Rhythm is a desktop screen-wellness companion that uses Presage SmartSpectra's real-time face analysis to observe blinking activity during computer sessions and encourage people to take occasional screen breaks.
+Screen Rhythm is a desktop screen-wellness companion that integrates Presage SmartSpectra's real-time face analysis to observe blinking activity during computer sessions and encourage people to take occasional screen breaks.
 
-Instead of simply counting screen time, Screen Rhythm makes screen habits more visible through live blink activity, session tracking and gentle reminders.
+Instead of simply counting screen time, Screen Rhythm makes screen habits more visible through live blink activity, session tracking, and gentle reminders.
 
 ## The problem
 
@@ -16,12 +16,12 @@ Screen Rhythm explores a different approach: using real-time camera-based signal
 
 ## What Screen Rhythm does
 
-- **Real-time blink tracking:** Uses Presage SmartSpectra face-analysis readings to count detected blinks during an active session.
-- **Live blink dashboard:** Displays blink counts, face-data duration and a rolling 60-second activity timeline.
-- **Gentle break reminders:** Suggests short screen breaks based on session duration, with cautious use of changes in an individual's blink activity.
-- **Interactive break experience:** Users can take a short break, dismiss a suggestion or adjust reminder intervals.
-- **Camera diagnostics:** Displays camera frame rate, SDK input and processing rates, and other pipeline information.
-- **Privacy-conscious processing:** Camera access requires user consent and is used during active sessions. Video is processed locally and is not recorded or saved.
+- **Real-time blink tracking:** Integrates Presage SmartSpectra face-analysis readings with Screen Rhythm's own blink-tracking logic to detect and count blink events.
+- **Live blink dashboard:** Displays blink counts, session information, and a rolling 60-second blink activity timeline.
+- **Gentle break reminders:** Suggests short screen breaks based on session duration.
+- **Interactive break experience:** Users can take a short break, dismiss a suggestion, or adjust reminder intervals.
+- **Camera diagnostics:** Displays camera frame rate, SDK input and processing rates, and other frame-pipeline information.
+- **Privacy-conscious processing:** Camera access requires user permission. Video is processed locally and is not recorded or saved by the application.
 
 ## Built with
 
@@ -33,25 +33,27 @@ Screen Rhythm explores a different approach: using real-time camera-based signal
 
 ## How it works
 
-1. The user opens Screen Rhythm and gives camera consent.
+1. The user opens Screen Rhythm and grants camera permission.
 2. The user starts a screen session.
 3. The application activates the camera and connects to Presage SmartSpectra.
 4. SmartSpectra provides real-time face-analysis readings.
-5. Screen Rhythm processes blink-detection events and updates the dashboard.
-6. The reminder system monitors session duration and available blink activity.
-7. The user receives gentle suggestions to take breaks.
+5. Screen Rhythm uses its own blink-tracking logic to detect and count blink events.
+6. The dashboard updates with blink activity, session information, and processing diagnostics.
+7. The reminder system monitors session duration and suggests occasional breaks.
 
 ## Privacy and data handling
 
 Privacy is an important part of Screen Rhythm.
 
-- Camera access is initiated only after the user starts a session.
-- Video is processed live on the user's computer.
-- Camera footage is not recorded or saved.
+- Camera access requires user permission and is used during active sessions.
+- Video frames are processed live on the user's computer.
+- Camera footage is not recorded or saved by the application.
+- Session summaries, including session information and blink counts, are stored locally.
 - The application does not require a user account.
+- SmartSpectra SDK telemetry is explicitly disabled in the application configuration using `enableTelemetry: false`.
 - The SmartSpectra API key is stored in a local `.env` file and must never be committed to the public repository.
 
-Screen Rhythm is a screen-wellness companion, not a medical application. It does not diagnose conditions or measure fatigue, stress, eye strain or medical health.
+Screen Rhythm is a screen-wellness companion, not a medical application. It does not diagnose conditions or measure fatigue, stress, eye strain, attention, or medical health.
 
 ## Installation and setup
 
@@ -67,13 +69,13 @@ Screen Rhythm is a screen-wellness companion, not a medical application. It does
 1. Clone the repository:
 
    ```bash
-   git clone YOUR_GITHUB_REPOSITORY_URL
+   git clone https://github.com/pitchmarie01/screen-rhythm.git
    ```
 
 2. Enter the project directory:
 
    ```bash
-   cd "SCREEN RHYTHM"
+   cd screen-rhythm
    ```
 
 3. Install dependencies:
@@ -82,7 +84,13 @@ Screen Rhythm is a screen-wellness companion, not a medical application. It does
    npm install
    ```
 
-4. Create a local `.env` file and configure your SmartSpectra API key using the environment variable expected by the application.
+4. Create a file named `.env` in the project root directory and add your Presage API key:
+
+   ```env
+   PRESAGE_API_KEY=your_presage_api_key_here
+   ```
+
+   Replace the placeholder with your own API key. Do not share or publish this key.
 
 5. Start the application:
 
@@ -100,37 +108,40 @@ Never publish your `.env` file or API key.
 
 ## Running tests
 
-Run the automated tests with:
+Run the automated test suite with:
 
 ```powershell
 npm.cmd test
 ```
 
-The current automated test suite includes blink-detector and break-reminder tests.
+The project currently has 41 passing automated tests covering core application logic.
 
 ## Current development status
 
 Implemented:
+
 - Electron desktop application.
-- SmartSpectra integration.
-- Camera consent and live preview.
-- Real blink-event detection.
+- Presage SmartSpectra SDK integration.
+- Camera permission and live camera processing.
+- Real blink-event detection using application-side logic.
 - Live blink activity dashboard.
-- 60-second blink timeline.
-- Configurable break reminders.
+- Rolling 60-second blink timeline.
+- Configurable, session-duration-based break reminders.
+- Interactive break experience.
+- Local session summaries and history.
 - Frame-pipeline diagnostics.
 - Dark charcoal and golden-yellow interface.
 
-Session history and final release packaging remain planned work.
+Final release packaging and further performance validation remain areas for improvement.
 
 ## Performance note
 
-The application targets at least 25 FPS for SmartSpectra processing. Actual performance depends on the camera, computer and frame-delivery pipeline.
+The application is designed to target approximately 25 FPS for SmartSpectra processing. Actual performance depends on the camera, computer, and frame-delivery pipeline.
 
-During development, a live webcam test sustained a session of more than three minutes, with approximately 24 FPS reported by SmartSpectra. Performance still requires further validation.
+During development, live webcam testing showed variable processing performance, with results around 24 FPS in one test. Performance can fluctuate depending on the hardware and operating conditions. The application displays live diagnostics so actual performance can be observed rather than assumed.
 
 ## Project vision
 
-Screen Rhythm aims to make people more aware of their screen habits through technology that is useful, interactive and easy to understand.
+Screen Rhythm aims to make people more aware of their screen habits through technology that is useful, interactive, privacy-conscious, and easy to understand.
 
 **Stay in your rhythm.**
